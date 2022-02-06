@@ -1,5 +1,5 @@
 *{
-    font-size: 40px;
+    font-size: 20px;
 }
 button{
     background: #8a98bd;;
@@ -9,20 +9,21 @@ button{
 .main{
     display:flex;
     width: 100vw;
+    height: 100vh;
     background: #292d3e;
     box-sizing: border-box;
 }
 .app{
     margin: 10px;
     padding: 10px;
-    width: 100%;
     display:flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 500px;
+    justify-content: space-between;
     align-items: center;
     border: 2px solid black;
     background: #4d5772;
     text-align: center;
+
 }
 .post{
     display: flex;
@@ -31,8 +32,9 @@ button{
     padding: 10px;
     justify-content:space-between;
     align-items: center;
+    height: 50px;
 
 }
 .post p{
-    margin: 10px
+    margin: 0;
 }

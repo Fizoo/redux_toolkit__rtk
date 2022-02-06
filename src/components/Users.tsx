@@ -1,29 +1,36 @@
-import React, {FC, useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from "../hooks/redux";
-import {fetchUsers} from "../store/reducers/ActionCreators";
+import React, {FC} from 'react';
+import {IUser, useAddUserMutation, useDeleteUserMutation, useFetchUsersQuery} from "../servises/PostService";
 
-interface OwnProps {}
 
 
 
 export const Users: FC = () => {
-    const dispatch = useAppDispatch()
-    const {users, error, isLoading} = useAppSelector(state => state.userReducer)
+   const {data:users,isLoading,isError,error}=useFetchUsersQuery()
+    const [addUser]=useAddUserMutation()
+    const [deleteUser]=useDeleteUserMutation()
 
-    useEffect(() => {
-        dispatch(fetchUsers())
-    }, []);
+   const handleAdd = async () => {
+       const user=prompt() as string|null
+       await addUser({name:user} as IUser)
+    };
+
+    console.log('User page')
+
+    const handleDelete = async (user:IUser) => {
+        await deleteUser(user)
+    };
 
     return (
-        <div>
+        <div style={{textAlign: 'center',margin:10}}>
             {isLoading && <h1>...Loading</h1>}
-            {error && <h1>{error}</h1>}
-            {users.map((user) =>
-                <div key={user.id} className="app">
-                    {<h1>{user.name}</h1>}
-                    {<h3>{user.email}</h3>}
-                    {<h5>{user.id}</h5>}
+            {isError && <h1>{error}</h1>}
+            <button onClick={handleAdd}>Add</button>
+            {users?.map((user) =>
+                <div  key={user.id} className="app">
+                    {<p>id: {user.id}</p>}
+                    {<h1>name: {user.name}</h1>}
 
+                    <button onClick={()=>handleDelete(user)}>Delete</button>
                 </div>)
             }
 

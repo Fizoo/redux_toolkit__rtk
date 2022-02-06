@@ -7,7 +7,7 @@ import {IPost} from "../models/IPost";
 export const PostContainer: FC = () => {
     const [limit, setLimit] = useState(100);
     const {data, error, isLoading,refetch} = postAPI.useFetchAllPostsQuery(limit,{
-        pollingInterval:50000// интервал отправки запроса
+        pollingInterval:500000// интервал отправки запроса
     })
     const [createPosts,{error:createError,isLoading:isCreateLoading}]=postAPI.useCreatePostMutation()//1 парам ф-ія,2-об"єкт.в use можна  указувати селектор,фільтрувати й тд й получати дані
     const [updatePost,{}]=postAPI.useUpdatePostMutation()
@@ -17,12 +17,12 @@ export const PostContainer: FC = () => {
     useEffect(() => {
         setTimeout(() => {
             setLimit(5)
-        },20000)
+        },200000)
     }, []);
 
     const handleCreatePost = async () => {
         const title:string|null=prompt()
-        await  createPosts({title,body:title} as IPost)
+        await  createPosts({title,body:title}as IPost)
     };
 
     const handleRemove = (post:IPost) => {
@@ -33,8 +33,9 @@ export const PostContainer: FC = () => {
         updatePost(post)
     };
 
+    console.log('Post Page')
     return (
-        <div>
+        <div style={{textAlign: 'center',margin:10}}>
           {  /*  <button onClick={()=>refetch()} >Refetch</button>  //подгрузка  данних*/}
             <button onClick={handleCreatePost}>Add new post</button>
             {error && <h1>error</h1>}

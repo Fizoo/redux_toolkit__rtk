@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {IPost} from "../models/IPost";
-import {postAPI} from "../servises/PostService";
+
 
 interface PostTypes {
     el:IPost;
@@ -15,8 +15,9 @@ const PostItems: FC<PostTypes> = ({el,remove,update}) => {
         remove(el)
 
     };
+    console.log('PostItem page')
 
-    const handleUpdate = (e:React.MouseEvent) => {
+    const handleUpdate = () => {
         const title=prompt()||''
         update({...el,title})
     };
